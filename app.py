@@ -1,10 +1,10 @@
 """Point d'entrée Hugging Face Spaces (SDK Gradio).
 
-Depuis juillet 2026, Hugging Face facture les Spaces Docker SDK (plan PRO).
-L'option gratuite restante pour les comptes personnels est le SDK Gradio
-sur le matériel ZeroGPU gratuit (jusqu'à 2 Spaces).
+L'application est FastAPI (pas Gradio) et CPU-only : embeddings locaux CPU,
+LLM appelé via API. Le Space utilise donc le matériel gratuit `cpu-basic`
+(configuré dans le README) — ZeroGPU est inutile ici et exigerait une
+fonction décorée @spaces.GPU + une interface Gradio montée.
 
-Ce fichier démarre le serveur FastAPI existant (main:app) sur le port 7860.
 Hugging Face exécute `app.py`, donc ce wrapper suffit à servir toute
 l'application web (templates/ + static/ + API SSE) telle quelle.
 
