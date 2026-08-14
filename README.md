@@ -8,7 +8,6 @@ sdk_version: 6.24.0
 python_version: '3.12'
 app_file: app.py
 pinned: false
-hardware: cpu-basic
 short_description: An AI-driven assistant and RAG pipeline
 ---
 
