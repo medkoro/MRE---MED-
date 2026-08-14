@@ -17,12 +17,17 @@ Usage :
     python app.py                           # sur Hugging Face (port 7860)
 """
 
+import os
+import sys
+
 import spaces
 
 import gradio as gr
-import uvicorn
 
 from main import app as fastapi_app
+
+
+print(f"[app.py] module-level import, pid={os.getpid()} argv={sys.argv}", flush=True)
 
 
 @spaces.GPU(duration=1)
@@ -44,7 +49,4 @@ app = gr.mount_gradio_app(fastapi_app, demo, path="/gradio-internal")
 if getattr(spaces, "zero", None) is not None and hasattr(spaces.zero, "startup"):
     spaces.zero.startup()
 
-if __name__ == "__main__":
-    import os
-
-    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", "7860")))
+print(f"[app.py] end of module, pid={os.getpid()}", flush=True)
