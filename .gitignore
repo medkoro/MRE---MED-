@@ -1,0 +1,17 @@
+# ===== Secrets — NE JAMAIS COMMITTER =====
+.env
+
+# ===== Environnement Python =====
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# ===== Données locales générées =====
+# (chroma_db et data/ sont COMMITTÉS pour la démo : pré-construits)
+# chroma_db/
+# data/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db

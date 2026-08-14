@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRE AI — Investir au Maroc, guidé par l'IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B1E33; --navy-2:#16304F; --navy-3:#1E3A5F; --navy-tint:#E7ECF3;
+  --gold:#C9972E; --gold-2:#B8841F; --gold-tint:#FBF1DC;
+  --green:#3F8F3F; --green-2:#2C6B2C; --green-tint:#E6F1E3;
+  --gray:#DEDBD1; --gray-light:#EEECE4; --surface:#F8F7F3;
+  --text:#16233A; --text-soft:#5F6B82; --white:#FFFFFF;
+  --radius:18px; --radius-sm:12px;
+  --shadow-sm:0 2px 8px rgba(11,30,51,.05);
+  --shadow-md:0 12px 32px rgba(11,30,51,.09);
+  --shadow-lg:0 24px 60px rgba(11,30,51,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased;}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.015em;}
+.container{max-width:1220px;margin:auto;padding:0 28px;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+
+/* ===== HEADER ===== */
+header{position:sticky;top:0;z-index:50;padding:16px 0;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(11,30,51,.06);}
+.header-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+.logo{display:flex;align-items:center;gap:12px;}
+.logo-icon{width:44px;height:44px;background:var(--navy);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:800;font-size:16px;font-family:'Fraunces',serif;}
+.logo-text-wrap{line-height:1.2;}
+.logo-title{font-size:17px;font-weight:800;color:var(--navy);font-family:'Inter',sans-serif;letter-spacing:.02em;}
+.logo-sub{font-size:9.5px;color:var(--text-soft);letter-spacing:.08em;text-transform:uppercase;}
+nav ul{display:flex;list-style:none;gap:28px;align-items:center;flex-wrap:wrap;}
+nav ul li a{text-decoration:none;font-weight:500;font-size:13.5px;color:var(--text);transition:color .2s;position:relative;}
+nav ul li a:not(.btn-admin):hover{color:var(--navy-2);}
+nav ul li a:not(.btn-admin)::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;background:var(--gold);transition:width .3s;}
+nav ul li a:not(.btn-admin):hover::after{width:100%;}
+.btn-admin{background:var(--navy);color:var(--white) !important;padding:10px 24px;border-radius:50px;font-size:13px !important;font-weight:600 !important;transition:.25s;box-shadow:var(--shadow-sm);}
+.btn-admin:hover{background:var(--navy-2);transform:translateY(-2px);box-shadow:var(--shadow-md);}
+
+/* ===== HERO ===== */
+.hero{position:relative;padding:72px 0 56px;overflow:hidden;background:
+  radial-gradient(circle at 0% 20%, var(--gold-tint) 0%, transparent 45%),
+  radial-gradient(circle at 100% 80%, var(--green-tint) 0%, transparent 45%),
+  linear-gradient(170deg, #FDFCFA 0%, var(--white) 100%);
+}
+.hero::before{content:'';position:absolute;top:-30%;right:-10%;width:60%;height:100%;background:radial-gradient(circle, rgba(201,151,46,.06) 0%, transparent 70%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--navy-tint);color:var(--navy-2);padding:6px 16px;border-radius:50px;font-size:12px;font-weight:700;letter-spacing:.02em;margin-bottom:20px;}
+.hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-dot 2s infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hero-grid{display:grid;grid-template-columns:1.2fr 0.8fr;gap:52px;align-items:center;}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:32px;}}
+.hero h2{font-size:48px;line-height:1.08;color:var(--navy);margin-bottom:16px;}
+.hero h2 .accent{color:var(--green);position:relative;}
+.hero h2 .accent::after{content:'';position:absolute;bottom:2px;left:0;width:100%;height:4px;background:var(--gold-tint);border-radius:4px;z-index:-1;}
+.hero p.lede{font-size:17px;color:var(--text-soft);max-width:540px;margin-bottom:32px;line-height:1.7;}
+.hero-buttons{display:flex;gap:14px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 30px;border-radius:50px;text-decoration:none;font-weight:600;font-size:14px;cursor:pointer;border:none;transition:.25s;font-family:'Inter',sans-serif;}
+.btn-primary{background:var(--navy);color:var(--white);box-shadow:var(--shadow-sm);}
+.btn-primary:hover{background:var(--navy-2);transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.btn-secondary{background:var(--white);color:var(--navy);border:1.5px solid var(--gray);}
+.btn-secondary:hover{border-color:var(--navy);transform:translateY(-2px);box-shadow:var(--shadow-sm);}
+.btn-gold{background:var(--gold);color:var(--white);}
+.btn-gold:hover{background:var(--gold-2);transform:translateY(-2px);box-shadow:var(--shadow-md);}
+
+/* ===== STATS ===== */
+.stat-strip{display:flex;gap:48px;flex-wrap:wrap;padding-top:36px;margin-top:36px;border-top:1px solid var(--gray);}
+.stat{display:flex;flex-direction:column;}
+.stat b{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--navy);}
+.stat span{font-size:12.5px;color:var(--text-soft);letter-spacing:.01em;}
+
+/* ===== HERO IMAGE ===== */
+.hero-image-wrapper{position:relative;display:flex;justify-content:center;align-items:center;}
+.hero-image-wrapper .image-frame{position:relative;width:100%;max-width:420px;aspect-ratio:1/1;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg);background:var(--gray-light);}
+.hero-image-wrapper .image-frame img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+.hero-image-wrapper .image-frame:hover img{transform:scale(1.02);}
+.image-frame .frame-accent{position:absolute;bottom:-12px;right:-12px;width:100px;height:100px;border-radius:50%;background:var(--gold-tint);z-index:-1;opacity:.4;}
+.image-frame .frame-accent-2{position:absolute;top:-12px;left:-12px;width:70px;height:70px;border-radius:50%;background:var(--green-tint);z-index:-1;opacity:.3;}
+.image-frame .badge-overlay{position:absolute;bottom:16px;left:16px;background:rgba(11,30,51,.85);backdrop-filter:blur(8px);color:white;padding:8px 16px;border-radius:50px;font-size:11px;font-weight:600;display:flex;align-items:center;gap:8px;}
+.image-frame .badge-overlay .flag{font-size:16px;}
+
+/* ===== TRUST STRIP ===== */
+.trust-strip{background:var(--navy);color:var(--white);padding:40px 0;}
+.trust-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;align-items:center;}
+.trust-item{display:flex;align-items:center;gap:14px;}
+.trust-icon{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border:1px solid rgba(255,255,255,.05);}
+.trust-text h5{font-size:13px;font-weight:700;margin-bottom:2px;}
+.trust-text p{font-size:11px;opacity:.6;}
+
+/* ===== SECTIONS ===== */
+section{padding:60px 0;}
+.section-eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-2);margin-bottom:6px;}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;margin-bottom:32px;}
+.section-head h2{font-size:30px;color:var(--navy);}
+.section-head .see-all{font-size:13px;font-weight:600;color:var(--navy-2);text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:.2s;}
+.section-head .see-all:hover{color:var(--navy);gap:10px;}
+
+/* ===== SECTOR CARDS ===== */
+.sectors-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
+.sector-card{background:var(--white);padding:28px 24px;border-radius:var(--radius);border:1px solid var(--gray);cursor:pointer;transition:.3s;position:relative;}
+.sector-card:hover{border-color:var(--navy);box-shadow:var(--shadow-md);transform:translateY(-5px);}
+.icon-badge{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:22px;}
+.icon-badge.b-navy{background:var(--navy-tint);}
+.icon-badge.b-green{background:var(--green-tint);}
+.icon-badge.b-gold{background:var(--gold-tint);}
+.sector-card h3{font-size:17px;font-weight:700;font-family:'Inter',sans-serif;margin-bottom:6px;color:var(--text);}
+.sector-card p{color:var(--text-soft);font-size:13px;line-height:1.6;}
+.card-arrow{position:absolute;right:22px;bottom:22px;color:var(--gray);font-size:18px;transition:.3s;}
+.sector-card:hover .card-arrow{color:var(--navy);transform:translateX(4px);}
+
+/* ===== OPPORTUNITIES ===== */
+.opp-section{background:var(--surface);}
+.opp-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;}
+.opp-item{background:var(--white);border-radius:var(--radius);border:1px solid var(--gray);overflow:hidden;transition:.3s;}
+.opp-item:hover{box-shadow:var(--shadow-md);transform:translateY(-4px);}
+.opp-visual{height:120px;position:relative;display:flex;align-items:flex-end;padding:14px;}
+.opp-visual.re{background:linear-gradient(135deg,#1E3A5F,#0B1E33);}
+.opp-visual.ag{background:linear-gradient(135deg,#4A9F4A,#2C6B2C);}
+.opp-visual.ind{background:linear-gradient(135deg,#3B4A63,#16233A);}
+.opp-visual.tou{background:linear-gradient(135deg,#D4A93A,#A87A1E);}
+.opp-tag{background:rgba(255,255,255,.95);color:var(--navy);padding:4px 14px;border-radius:50px;font-size:10.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;}
+.opp-body{padding:18px 20px 22px;}
+.opp-body h4{font-size:16px;font-weight:700;font-family:'Inter',sans-serif;margin-bottom:3px;}
+.opp-body .loc{color:var(--text-soft);font-size:12.5px;margin-bottom:14px;}
+.opp-figures{display:flex;justify-content:space-between;font-size:12px;}
+.opp-figures .fig-label{color:var(--text-soft);display:block;margin-bottom:2px;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;}
+.opp-figures .rendement{color:var(--green);font-weight:700;font-size:15px;}
+.opp-figures .montant{color:var(--text);font-weight:700;font-size:15px;}
+
+/* ===== OBSERVATORY ===== */
+.obs-preview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
+.expert-card{background:var(--white);border:1px solid var(--gray);border-radius:var(--radius-sm);padding:20px;transition:.25s;}
+.expert-card:hover{box-shadow:var(--shadow-sm);border-color:var(--navy-tint);transform:translateY(-2px);}
+.expert-top{display:flex;gap:13px;align-items:center;margin-bottom:12px;}
+.avatar{width:44px;height:44px;border-radius:50%;background:var(--navy-tint);color:var(--navy-2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;}
+.expert-name{font-size:14px;font-weight:700;}
+.expert-loc{font-size:11.5px;color:var(--text-soft);}
+.tag-row{display:flex;flex-wrap:wrap;gap:5px;}
+.tag-pill{font-size:10.5px;font-weight:600;padding:3px 12px;border-radius:50px;}
+.tag-pill.navy{background:var(--navy-tint);color:var(--navy-2);}
+.tag-pill.green{background:var(--green-tint);color:#2C6B2C;}
+.tag-pill.gold{background:var(--gold-tint);color:#96731F;}
+.obs-empty{color:var(--text-soft);font-size:14px;font-style:italic;padding:20px 0;}
+
+/* ===== HOW IT WORKS ===== */
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px;}
+.how-item{padding:28px;background:var(--white);border-radius:var(--radius-sm);border:1px solid var(--gray);transition:.25s;}
+.how-item:hover{border-color:var(--navy-tint);box-shadow:var(--shadow-sm);}
+.how-num{width:34px;height:34px;border-radius:50%;background:var(--navy);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin-bottom:14px;font-family:'Fraunces',serif;}
+.how-item h4{font-size:16px;font-weight:700;margin-bottom:6px;}
+.how-item p{font-size:13px;color:var(--text-soft);line-height:1.6;}
+
+/* ===== TEAM / CREATORS ===== */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+.team-card{background:var(--white);border:1px solid var(--gray);border-radius:var(--radius-sm);padding:26px 22px;text-align:center;transition:.25s;}
+.team-card:hover{border-color:var(--navy);box-shadow:var(--shadow-md);transform:translateY(-4px);}
+.team-avatar{width:56px;height:56px;border-radius:50%;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;margin:0 auto 12px;font-family:'Fraunces',serif;}
+.team-card h4{font-size:15px;font-weight:700;margin-bottom:2px;}
+.team-role{font-size:11.5px;color:var(--text-soft);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;}
+.team-linkedin{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--navy-2);border:1px solid var(--gray);padding:7px 16px;border-radius:50px;transition:.2s;}
+.team-linkedin:hover{border-color:var(--navy);color:var(--navy);background:var(--navy-tint);}
+.team-linkedin svg{width:15px;height:15px;}
+
+/* ===== FOOTER ===== */
+footer{background:var(--navy);color:var(--white);padding:48px 0 28px;border-top:1px solid rgba(255,255,255,.06);}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;margin-bottom:36px;}
+@media (max-width:700px){.footer-grid{grid-template-columns:1fr;gap:28px;}}
+.footer-brand{display:flex;align-items:center;gap:11px;margin-bottom:14px;}
+.footer-brand .brand-icon{width:36px;height:36px;background:rgba(255,255,255,.08);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--gold);font-family:'Fraunces',serif;}
+.footer-brand-title{font-size:15px;font-weight:800;}
+footer p.tagline{font-size:13px;opacity:.55;max-width:280px;line-height:1.7;}
+.footer-col h5{font-size:11px;text-transform:uppercase;letter-spacing:.08em;opacity:.5;margin-bottom:14px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul a{font-size:13px;opacity:.75;text-decoration:none;transition:opacity .2s;}
+.footer-col ul a:hover{opacity:1;}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:24px;border-top:1px solid rgba(255,255,255,.06);}
+footer p.copyright{opacity:.4;font-size:12px;}
+.footer-poc{font-size:11.5px;opacity:.35;}
+
+/* ===== FLASH ===== */
+.flash-messages{padding:14px 0 0;}
+.flash-messages .flash{padding:11px 18px;border-radius:10px;margin:0 auto 10px;max-width:560px;font-weight:500;font-size:14px;text-align:center;}
+.flash.success{background:var(--green-tint);color:#2C6B2C;}
+.flash.error{background:#FBEAEA;color:#A23B3B;}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:768px){
+  .hero h2{font-size:32px;}
+  .hero{padding:48px 0 36px;}
+  .hero-grid{gap:28px;}
+  .stat-strip{gap:28px;}
+  .stat b{font-size:24px;}
+  .hero-image-wrapper .image-frame{max-width:100%;aspect-ratio:4/3;}
+  section{padding:40px 0;}
+  .section-head h2{font-size:24px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="container header-inner">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="MRE AI" style="height:38px;width:auto;">
+      <div class="logo-text-wrap">
+        <div class="logo-title">MRE AI</div>
+        <div class="logo-sub">Intelligence au service du pays</div>
+      </div>
+    </img>
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('home') }}">Accueil</a></li>
+        <li><a href="#opportunities">Opportunités</a></li>
+        <li><a href="{{ url_for('chat_page') }}">Assistant IA</a></li>
+        <li><a href="{{ url_for('observatory') }}">Observatoire</a></li>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="{{ url_for('login') }}" class="btn-admin">Se connecter</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== FLASH ===== -->
+<div class="flash-messages">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <div class="container"><div class="flash {{ category }}">{{ message }}</div></div>
+    {% endfor %}
+  {% endwith %}
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-badge"><span class="dot"></span> Plateforme IA multi-agents</div>
+      <h2>Investisser au Maroc<br>
+      <p class="lede">MRE AI vous aide à découvrir les meilleures opportunités d'investissement grâce à l'intelligence artificielle, avec des réponses sourcées, vérifiées et à jour.</p>
+      <div class="hero-buttons">
+        <a href="#opportunities" class="btn btn-primary">Découvrir les opportunités</a>
+        <a href="{{ url_for('chat_page') }}" class="btn btn-secondary">Parler à un agent IA →</a>
+      </div>
+      <div class="stat-strip">
+        <div class="stat"><b>~7M</b><span>Marocains résidant à l'étranger</span></div>
+        <div class="stat"><b>40 Mds MAD</b><span>Transferts sur 4 mois (2026)</span></div>
+        <div class="stat"><b>4</b><span>Secteurs couverts</span></div>
+      </div>
+    </div>
+
+    <!-- ===== HERO IMAGE ===== -->
+    <div class="hero-image-wrapper">
+      <div class="image-frame">
+        <div class="frame-accent"></div>
+        <div class="frame-accent-2"></div>
+        <img src="{{ url_for('static', filename='images/aceuil.png') }}" alt="Culture marocaine - Accueil des MRE">
+        <div class="badge-overlay">
+          <span class="flag">🇲🇦</span>
+          Bienvenue au Maroc
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRUST STRIP ===== -->
+<section class="trust-strip">
+  <div class="container trust-grid">
+    <div class="trust-item">
+      <div class="trust-icon">✓</div>
+      <div class="trust-text"><h5>Sources vérifiées</h5><p>Organismes officiels, RAG documenté</p></div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🔒</div>
+      <div class="trust-text"><h5>Données protégées</h5><p>Aucune revente d'information</p></div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🤖</div>
+      <div class="trust-text"><h5>Agents spécialisés</h5><p>Un agent expert par secteur</p></div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🇲🇦</div>
+      <div class="trust-text"><h5>100% dédié au Maroc</h5><p>Conçu pour la diaspora marocaine</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTORS ===== -->
+<section id="sectors">
+  <div class="container">
+    <div class="section-eyebrow">Nos domaines d'expertise</div>
+    <div class="section-head"><h2>Secteurs d'investissement</h2></div>
+    <div class="sectors-grid">
+      <div class="sector-card" data-sector="real_estate">
+        <div class="icon-badge b-navy">🏠</div>
+        <h3>Immobilier</h3>
+        <p>Résidentiel et commercial, fiscalité, rendements par ville.</p>
+        <span class="card-arrow">→</span>
+      </div>
+      <div class="sector-card" data-sector="agriculture">
+        <div class="icon-badge b-green">🌱</div>
+        <h3>Agriculture</h3>
+        <p>Plan Maroc Vert, filières et zones prometteuses.</p>
+        <span class="card-arrow">→</span>
+      </div>
+      <div class="sector-card" data-sector="industry">
+        <div class="icon-badge b-navy">🏭</div>
+        <h3>Industrie</h3>
+        <p>Zones franches, avantages fiscaux, projets d'avenir.</p>
+        <span class="card-arrow">→</span>
+      </div>
+      <div class="sector-card" data-sector="tourism">
+        <div class="icon-badge b-gold">🌴</div>
+        <h3>Tourisme</h3>
+        <p>Hôtellerie, tourisme durable, Vision 2030.</p>
+        <span class="card-arrow">→</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OPPORTUNITIES ===== -->
+<section id="opportunities" class="opp-section">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="section-eyebrow">Sélection du moment</div><h2>Opportunités à la une</h2></div>
+      <a href="#opportunities" class="see-all">Voir toutes →</a>
+    </div>
+    <div class="opp-list">
+      <div class="opp-item">
+        <div class="opp-visual re"><span class="opp-tag">Immobilier</span></div>
+        <div class="opp-body">
+          <h4>Résidence AI Manar</h4>
+          <p class="loc">Casablanca</p>
+          <div class="opp-figures">
+            <div><span class="fig-label">Rendement</span><span class="rendement">7.8%</span></div>
+            <div><span class="fig-label">Montant min.</span><span class="montant">500 000 MAD</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="opp-item">
+        <div class="opp-visual ag"><span class="opp-tag">Agriculture</span></div>
+        <div class="opp-body">
+          <h4>Projet Agricole Durabilité</h4>
+          <p class="loc">Meknès</p>
+          <div class="opp-figures">
+            <div><span class="fig-label">Rendement</span><span class="rendement">9.2%</span></div>
+            <div><span class="fig-label">Montant min.</span><span class="montant">250 000 MAD</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="opp-item">
+        <div class="opp-visual ind"><span class="opp-tag">Industrie</span></div>
+        <div class="opp-body">
+          <h4>Usine Textile Innovante</h4>
+          <p class="loc">Tanger</p>
+          <div class="opp-figures">
+            <div><span class="fig-label">Rendement</span><span class="rendement">8.1%</span></div>
+            <div><span class="fig-label">Montant min.</span><span class="montant">1 000 000 MAD</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="opp-item">
+        <div class="opp-visual tou"><span class="opp-tag">Tourisme</span></div>
+        <div class="opp-body">
+          <h4>Éco-Resort Taghazout</h4>
+          <p class="loc">Agadir</p>
+          <div class="opp-figures">
+            <div><span class="fig-label">Rendement</span><span class="rendement">10.3%</span></div>
+            <div><span class="fig-label">Montant min.</span><span class="montant">750 000 MAD</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OBSERVATORY ===== -->
+<section id="observatory">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="section-eyebrow">Réseau d'experts</div><h2>Observatoire des compétences</h2></div>
+      <a href="{{ url_for('observatory') }}" class="see-all">Voir plus d'experts →</a>
+    </div>
+    <div class="obs-preview-grid">
+      {% for post in posts[:4] %}
+      <div class="expert-card">
+        <div class="expert-top">
+          <div class="avatar">{{ post.initials() }}</div>
+          <div>
+            <div class="expert-name">{{ post.title }}</div>
+            <div class="expert-loc">{{ post.country or "Pays non précisé" }}</div>
+          </div>
+        </div>
+        <div class="tag-row">
+          <span class="tag-pill navy">{{ post.sector_label() }}</span>
+          {% for tag in post.tags_list()[:2] %}
+          <span class="tag-pill green">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% else %}
+      <p class="obs-empty">Aucun profil publié pour le moment. L'équipe MRE AI met à jour cette section depuis l'espace admin.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="opp-section" id="about">
+  <div class="container">
+    <div class="section-eyebrow">Notre méthode</div>
+    <div class="section-head"><h2>Comment ça marche</h2></div>
+    <div class="how-grid">
+      <div class="how-item"><div class="how-num">1</div><h4>Posez votre question</h4><p>En langage naturel, sur n'importe quel secteur d'investissement.</p></div>
+      <div class="how-item"><div class="how-num">2</div><h4>Le Router Agent identifie le bon domaine</h4><p>Votre question est orientée vers l'agent spécialisé correspondant.</p></div>
+      <div class="how-item"><div class="how-num">3</div><h4>Vous recevez une réponse sourcée</h4><p>Basée sur des sources vérifiées, avec les organismes compétents cités.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TEAM ===== -->
+<section id="team">
+  <div class="container">
+    <div class="section-eyebrow">L'équipe</div>
+    <div class="section-head"><h2>Qui a créé ce projet ?</h2></div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar">MA</div>
+        <h4>Mohammed Amaqdouf</h4>
+        <div class="team-role">Fondateur</div>
+        <a class="team-linkedin" href="https://www.linkedin.com/in/mohammed-amaqdouf-4a47a923b" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">HI</div>
+        <h4>Hassan Ibakh</h4>
+        <div class="team-role">Fondateur</div>
+        <a class="team-linkedin" href="https://www.linkedin.com/in/hassan-ibakh" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">WB</div>
+        <h4>Wissal Biyi</h4>
+        <div class="team-role">Fondatrice</div>
+        <a class="team-linkedin" href="https://www.linkedin.com/in/wissal-biyi-948372336" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">SI</div>
+        <h4>Salma Idrissi Lamghari</h4>
+        <div class="team-role">Fondatrice</div>
+        <a class="team-linkedin" href="https://www.linkedin.com/in/salma-idrissi-lamghari" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <div class="brand-icon">M</div>
+          <span class="footer-brand-title">MRE AI</span>
+        </div>
+        <p class="tagline">Plateforme d'intelligence artificielle multi-agents dédiée aux Marocains résidant à l'étranger, pour investir au pays en toute confiance.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="{{ url_for('home') }}">Accueil</a></li>
+          <li><a href="{{ url_for('chat_page') }}">Assistant IA</a></li>
+          <li><a href="{{ url_for('observatory') }}">Observatoire</a></li>
+          <li><a href="#sectors">Secteurs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Secteurs</h5>
+        <ul>
+          <li><a href="{{ url_for('chat_page') }}?sector=real_estate">Immobilier</a></li>
+          <li><a href="{{ url_for('chat_page') }}?sector=agriculture">Agriculture</a></li>
+          <li><a href="{{ url_for('chat_page') }}?sector=industry">Industrie</a></li>
+          <li><a href="{{ url_for('chat_page') }}?sector=tourism">Tourisme</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copyright">© 2026 MRE AI. Tous droits réservés.</p>
+      <p class="footer-poc">Preuve de concept — secteur immobilier</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SCRIPT ===== -->
+<script>
+  document.querySelectorAll('.sector-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const sector = card.dataset.sector;
+      window.location.href = "{{ url_for('chat_page') }}?sector=" + sector;
+    });
+  });
+</script>
+</body>
+</html>
