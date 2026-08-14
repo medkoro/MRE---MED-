@@ -1,3 +1,16 @@
+---
+title: Mre Ai
+emoji: 🌍
+colorFrom: purple
+colorTo: pink
+sdk: gradio
+sdk_version: 6.24.0
+python_version: '3.12'
+app_file: app.py
+pinned: false
+short_description: An AI-driven assistant and RAG pipeline
+---
+
 # MRE AI — Agent Immobilier pour les Marocains Résidant à l'Étranger
 
 Application de conseil **immobilier et fiscale** pour les **Marocains Résidant à l'Étranger (MRE)**.
@@ -29,7 +42,7 @@ PDF → clean_pdf.py → Markdown propre → ingest.py → ChromaDB (bge-m3) →
 | Extraction PDF | PyMuPDF (pymupdf4llm) |
 | LLM | `poolside/laguna-s-2.1:free` via OpenRouter (SSE) |
 | Client web | Fetch + ReadableStream, `marked.js` (Markdown→HTML) |
-| Divers | huggingface-cli transforms, loguru, python-dotenv |
+| Divers | loguru, python-dotenv |
 
 ## Arborescence
 
@@ -39,12 +52,12 @@ PDF → clean_pdf.py → Markdown propre → ingest.py → ChromaDB (bge-m3) →
 ├── models.py          # Contrats API Pydantic
 ├── config.py          # Configuration pydantic-settings (.env)
 ├── ingest.py          # Vectorisation .md/.pdf dans ChromaDB (idempotent)
-├── clean_pdf.py       # Prétraitement PDF bruts → .md propres (nettoyage regex)
+├── app.py             # Point d'entrée Hugging Face Spaces (SDK Gradio)
 ├── requirements.txt
-├── .env               # OPENROUTER_API_KEY=sk-or-... (à créer)
+├── .env               # OPENROUTER_API_KEY=sk-or-... (secret, non commité)
 ├── data/              # Documents sources (PDF bruts + .md nettoyés)
 ├── chroma_db/         # Base vectorielle persistante (générée par ingest.py)
-├── templates/         # Interface web historique (non modifiée)
+├── templates/         # Interface web historique
 └── static/            # Images (logo, etc.)
 ```
 
@@ -142,7 +155,7 @@ Structure de réponse compatible (observatoire non implémenté : résultats vid
 
 ## Anti-hallucination
 
-1. Filtrage métadonnée `sector == "immobilier"` (rag_engine.py).
+1. Filtrage métadonnée `sector` (rag_engine.py).
 2. Seuil de similarité : chunks trop éloignés écartés.
 3. Prompt strict : citations obligatoires, interdiction d'inventer, Markdown pur.
 4. Événement `sources` en tête de chaque réponse (traçabilité).
@@ -152,8 +165,6 @@ Structure de réponse compatible (observatoire non implémenté : résultats vid
 - « Quelles conditions pour ouvrir un compte en dirhams convertibles ? » (IGOC 2024)
 - « Quels droits d'enregistrement pour un MRE qui achète ? » (CGI extraits)
 - « Quelles opérations sur un compte de capital ? » (IGOC 2024)
-
-Les 4 documents indexés bornent le périmètre : question hors-périmètre → sources RAG inexistantes, réponse incertaine.
 
 ## Limitations / roadmap
 
