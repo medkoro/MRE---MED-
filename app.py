@@ -43,6 +43,29 @@ with gr.Blocks() as demo:
 
 app = gr.mount_gradio_app(fastapi_app, demo, path="/gradio-internal")
 
+
+def _probe_port(port: int) -> None:
+    import socket
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    try:
+        s.bind(("0.0.0.0", port))
+        print(f"[app.py] probe port {port}: FREE", flush=True)
+        s.close()
+    except OSError as exc:
+        print(f"[app.py] probe port {port}: BUSY -> {exc}", flush=True)
+        try:
+            ns = os.popen("netstat -tlnp 2>/dev/null || netstat -tln 2>/dev/null").read()
+            print(f"[app.py] netstat:\n{ns}", flush=True)
+        except Exception:
+            pass
+        s.close()
+
+
+_probe_port(int(os.environ.get("PORT", "7860")))
+print(f"[app.py] PORT env={os.environ.get('PORT')!r}", flush=True)
+
 # ZeroGPU : envoyer le rapport de démarrage (le runtime attend au moins une
 # fonction @spaces.GPU ; en l'absence de launch() gradio, on le déclenche
 # nous-mêmes). No-op hors ZeroGPU.
@@ -50,3 +73,10 @@ if getattr(spaces, "zero", None) is not None and hasattr(spaces.zero, "startup")
     spaces.zero.startup()
 
 print(f"[app.py] end of module, pid={os.getpid()}", flush=True)
+
+if __name__ == "__main__":
+    print(f"[app.py] __main__ pid={os.getpid()}", flush=True)
+    _probe_port(int(os.environ.get("PORT", "7860")))
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", "7860")))
