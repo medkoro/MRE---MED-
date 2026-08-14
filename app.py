@@ -6,9 +6,9 @@ Spaces exécutables, et ZeroGPU exige au démarrage une interface Gradio avec
 au moins une fonction décorée @spaces.GPU liée à un handler.
 
 Ce fichier monte donc une mini-app Gradio "fantôme" (@spaces.GPU + bouton)
-sur la FastAPI existante via gr.mount_gradio_app, puis démarre uvicorn.
-La FastAPI sert toute l'application web (templates/ + static/ + API SSE)
-et la mini-app Gradio ne sert qu'à satisfaire la détection ZeroGPU.
+sur la FastAPI existante via gr.mount_gradio_app. Sur Hugging Face, le
+runtime ZeroGPU sert lui-même l'app (ne pas relancer uvicorn : le port
+7860 est déjà occupé par le runtime). En local, on démarre uvicorn.
 
 Usage :
     python app.py          # démarre uvicorn sur 0.0.0.0:7860
@@ -48,7 +48,9 @@ def build_app():
 
 app = build_app()
 
-_PORT = int(os.environ.get("PORT", "7860"))
-
-if __name__ == "__main__":
+# Sur Hugging Face (ZeroGPU), le runtime sert déjà l'app sur 7860 :
+# relancer uvicorn provoquerait "address already in use".
+# On ne lance donc uvicorn qu'en local (pas de variable SPACES_ZERO_GPU).
+if __name__ == "__main__" and os.environ.get("SPACES_ZERO_GPU") != "1":
+    _PORT = int(os.environ.get("PORT", "7860"))
     uvicorn.run(app, host="0.0.0.0", port=_PORT)
